@@ -1,0 +1,85 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "RNG API",
+        "description": "Random Number Generator methods",
+        "version": "v1"
+    },
+    "host": "localhost:8010",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/v1",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/shuffler": {
+            "post": {
+                "operationId": "shuffler_view_v1",
+                "tags": ["shuffler"],
+                "description": "Shuffles a sequence of numbers from min_value to max_value",
+                "parameters": [
+                    {
+                        "name": "min_value",
+                        "in": "query",
+                        "description": "Min value",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "max_value",
+                        "in": "query",
+                        "description": "Max value",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sequence is shuffled",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Wrong request",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Sequence": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "Error": {
+            "required": [
+                "title"
+            ],
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Error title"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Error description"
+                }
+            }
+        }
+    }
+}
